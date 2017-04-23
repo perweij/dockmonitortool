@@ -10,9 +10,15 @@
 #+EXPORT_EXCLUDE_TAGS: exclude
 #+STARTUP:    showall
 
- | Status:   | Works                                |
- | Location: | [[https://github.com/perweij/dockmonitortool]] |
 
+
+* Changes
+ - 2017-04-23: Version 0.1 - initial version
+
+
+ | Status:         | Works                                               |
+ | Location:       | [[https://github.com/perweij/dockmonitortool]]          |
+ | Latest release: | https://github.com/perweij/dockmonitortool/releases |
 
 * Description
 This is a trivially simple tool for automatically setting the right
@@ -32,7 +38,7 @@ Before building, you need to adjust three constants in =dockmonitortool.c=.
 
  0. =#define DOCK <dockfile in sysfs>=
 
-    Specify the file in sysfs corresponding to your dock. It is a file
+    Specify the file in =sysfs= corresponding to your dock. It is a file
     that contains integer 0 when no dock is present, and an integer
     with another value when a dock is present. This may vary between
     different hardware, so you need to find the file that is right for
@@ -60,9 +66,5 @@ You can run it however you like from within your X11 session. The easiest way
 is to add it to your ~/.xinitrc:
 : nice dockmonitortool &
 
-
-
-* History
- - 2017-04-23: Version 0.1 - initial version
 
 

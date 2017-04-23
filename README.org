@@ -1,0 +1,68 @@
+#+TITLE:     dockmonitortool
+#+AUTHOR:    Per Weijnitz
+#+EMAIL:     per.weijnitz@gmail.com
+#+DATE:      2016-11-06
+#+DESCRIPTION: 
+#+KEYWORDS: 
+#+LANGUAGE:  en
+#+OPTIONS:   H:3 num:t toc:nil \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t
+#+OPTIONS:   TeX:t LaTeX:nil skip:nil d:nil todo:nil pri:nil tags:not-in-toc
+#+EXPORT_EXCLUDE_TAGS: exclude
+#+STARTUP:    showall
+
+ | Status:   | Works                                |
+ | Location: | [[https://github.com/perweij/dockmonitortool]] |
+
+
+* Description
+This is a trivially simple tool for automatically setting the right
+display settings depending on whether your laptop is in the docking station or
+not. It periodically monitors the dock file in =sysfs=, and if its
+state changes it runs the corresponding display setting command.
+
+This is most likely not useful for X11-users that run a heavy display
+manager such as Gnome or KDE, but if you are running a lightweight
+setup with only X11 and a minimal window manager such as dwm, evilwm
+etc, it can be most useful.
+
+
+
+* Setup
+Before building, you need to adjust three constants in =dockmonitortool.c=.
+
+ 0. =#define DOCK <dockfile in sysfs>=
+
+    Specify the file in sysfs corresponding to your dock. It is a file
+    that contains integer 0 when no dock is present, and an integer
+    with another value when a dock is present. This may vary between
+    different hardware, so you need to find the file that is right for
+    your system. On my laptop I use:
+    =#define DOCK "/sys/devices/platform/hp-wmi/dock"=
+ 1. =#define CMD_DOCK= and =#define CMD_NODOCK=
+
+    Define the two =xrandr= commands which you use to set your preferred
+    display settings when docked and undocked. If you are unsure what 
+    those commands are, you can use the program =arandr= to interactively
+    adjust the display, and saving the resulting settings to a file containing
+    the exact =xrandr= command line to use.
+
+
+
+* Install
+ - =autoreconf --install=
+ - =./configure (--prefix...)=
+ - =make all (install)=
+
+
+
+* Usage
+You can run it however you like from within your X11 session. The easiest way
+is to add it to your ~/.xinitrc:
+: nice dockmonitortool &
+
+
+
+* History
+ - 2017-04-23: Version 0.1 - initial version
+
+
